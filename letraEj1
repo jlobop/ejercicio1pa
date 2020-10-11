@@ -1,0 +1,63 @@
+Gustavo Froilán Signorel
+
+GET /alumnos – Obtener todos los alumnos. Debe aceptar también: GET /alumnos?estado=[aprobado|reprobado|pendiente]
+Devuelve 200 OK si todo salió bien
+204 (no content) si no hay alumnos
+500 si hubo algún problema no esperado (alguna excepción, por ejemplo, el archivo no está o tiene el formato esperado).
+Body response ejemplo:
+[
+    {
+        "id":"12221",
+        "nombre": "Maria Perez",
+        "estado": "aprobado"
+    },
+    {
+        "id":"13344",
+        "nombre": "Luis Suárez",
+        "estado": "aprobado"
+    }
+]
+
+GET /alumnos/<id> – Obtener el alumno identificado con el id especificado (puede ser la CI)
+Devuelve 200 si el alumno estaba
+404, si no hay alumno con ese id
+500, otra excepción
+
+Body response ejemplo para http://localhost:5000/alumnos/12221
+[
+    {
+        "id":"12221",
+        "nombre": "Maria Perez",
+        "estado": "aprobado"
+    }
+ ]   
+
+POST /alumnos – Dar de alta un alumno (o varios). Los datos que deben enviarse vía Json son, al menos, nombre, ci, estado. Los datos pueden guardarse en BD o bien, en un archivo.
+Devuelve 201 (created) si el alumno pudo darse de alta
+400 (bad request), si el formato de Json está mal, o bien, si el id está repetido.
+500, otra excepción
+
+Body request ejemplo:
+[
+    {
+        "id":"12221",
+        "nombre": "Maria Perez",
+        "estado": "aprobado"
+    },
+    {
+        "id":"13344",
+        "nombre": "Luis Suárez",
+        "estado": "aprobado"
+    }
+]
+
+PUT /alumnos/<id> -  Modificar el alumno con el id específico. Se envía el mismo Json que se usar para dar de alta.
+200 si se hizo el update correctamente
+400 (bad request) si el Json no tiene el formato
+404, si el alumno que se quiere actualizar, no está (no existe el id)
+500, otra excepción
+
+DELETE /alumnos/<id> – Borrar el alumno con el id especificado
+200 - OK
+404 - no existe el alumno
+500 - otra excepción
